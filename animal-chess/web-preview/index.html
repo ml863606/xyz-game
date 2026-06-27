@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>斗兽棋预览</title>
+    <link rel="stylesheet" href="/web-preview/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="game-shell">
+        <header class="topbar">
+          <div>
+            <h1>斗兽棋</h1>
+            <p id="status">本地规则预览</p>
+          </div>
+          <div class="room-code" id="roomCode">未建房</div>
+        </header>
+
+        <section class="players" id="players"></section>
+
+        <section class="board-wrap">
+          <div class="river-label river-left">河界</div>
+          <section class="board" id="board" aria-label="斗兽棋棋盘"></section>
+          <div class="river-label river-right">兽斗</div>
+        </section>
+
+        <section class="message" id="message">红方先手</section>
+
+        <section class="controls">
+          <button id="createRoom" type="button">创建</button>
+          <button id="joinRoom" type="button">加入</button>
+          <button id="ready" type="button" class="primary">准备</button>
+          <button id="share" type="button">房号</button>
+          <button id="resign" type="button" class="danger">认输</button>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="/web-dist/main.js"></script>
+  </body>
+</html>

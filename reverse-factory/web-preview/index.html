@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>反向合成工厂</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="factory-backdrop" aria-hidden="true">
+      <span class="pipe pipe-a"></span>
+      <span class="pipe pipe-b"></span>
+      <span class="beam beam-a"></span>
+      <span class="beam beam-b"></span>
+    </div>
+    <main class="shell">
+      <section class="stage" aria-label="反向合成工厂">
+        <header class="hud">
+          <div class="brand">
+            <span class="badge">今日离谱订单</span>
+            <h1>反向合成工厂</h1>
+            <p id="message">点击大件拆成零件，凑齐订单立刻交付。</p>
+          </div>
+          <div class="goal-strip" aria-label="当前目标">
+            <strong>目标</strong>
+            <span>拆出客户要的零件</span>
+            <em>500 分通关</em>
+          </div>
+          <div class="stats">
+            <span id="score">0</span>
+            <span id="moves">0</span>
+            <span id="combo">0</span>
+            <span id="jam">0%</span>
+          </div>
+        </header>
+
+        <div class="workbench">
+          <section class="machine">
+            <div class="machine-top">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="belt" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div id="board" class="board" aria-label="工厂拆解网格"></div>
+          </section>
+
+          <aside class="orders">
+            <div class="orders-lamp" aria-hidden="true"></div>
+            <h2>荒唐订单</h2>
+            <div id="orders"></div>
+            <div class="actions">
+              <button id="deliver" class="primary-action" type="button">交付选中</button>
+              <button id="shuffle" type="button">洗牌救场</button>
+              <button id="restart" type="button">重开今天</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <div id="burst" class="burst" aria-hidden="true"></div>
+    <script type="module" src="../web-dist/main.js"></script>
+  </body>
+</html>

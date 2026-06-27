@@ -1,0 +1,15 @@
+{
+  "name": "reverse-factory",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc -p tsconfig.json",
+    "build:web": "esbuild web-preview/src/main.ts --bundle --format=esm --target=es2020 --outfile=web-dist/main.js",
+    "preview": "npm run build:web"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.5",
+    "typescript": "^5.8.3"
+  }
+}

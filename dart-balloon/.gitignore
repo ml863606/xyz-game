@@ -1,0 +1,8 @@
+.agents
+.codex
+.godot
+*.import
+screenshots
+bin/
+obj/
+
