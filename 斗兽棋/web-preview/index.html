@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>斗兽棋预览</title>
+    <link rel="stylesheet" href="/web-preview/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="game-shell">
+        <header class="topbar">
+          <div>
+            <h1>斗兽棋</h1>
+            <p id="status">本地规则预览</p>
+          </div>
+          <div class="room-code" id="roomCode">本地对弈</div>
+        </header>
+
+        <section class="players" id="players"></section>
+
+        <section class="mode-switch" aria-label="游戏模式">
+          <button id="localMode" type="button" class="active">本地对弈</button>
+          <button id="onlineMode" type="button">联网模式</button>
+        </section>
+
+        <section class="board-wrap">
+          <div class="river-label river-left">翻 牌</div>
+          <section class="board" id="board" aria-label="斗兽棋棋盘"></section>
+          <div class="river-label river-right">地道</div>
+        </section>
+
+        <section class="message" id="message">翻开第一张 牌确定阵营</section>
+
+        <section class="controls">
+          <button id="createRoom" type="button" data-online>创建</button>
+          <button id="joinRoom" type="button" data-online>加入</button>
+          <button id="ready" type="button" class="primary" data-online>准备</button>
+          <button id="share" type="button" data-online>房号</button>
+          <button id="restart" type="button" class="primary">重开</button>
+          <button id="resign" type="button" class="danger">认输</button>
+        </section>
+      </div>
+
+      <section class="rules-overlay" id="rulesOverlay" aria-modal="true" role="dialog" aria-labelledby="rulesTitle">
+        <div class="rules-panel">
+          <div class="rules-copy">
+            <p class="rules-kicker">先看 5 步，再开始</p>
+            <h2 id="rulesTitle">怎么玩</h2>
+            <p id="rulesText">先随便点一张背 牌翻开。翻出的颜色，就是你的阵营。</p>
+          </div>
+
+          <div class="rules-demo" id="rulesDemo" aria-hidden="true">
+            <div class="demo-board">
+              <span class="demo-hint tap">点这里</span>
+              <span class="demo-hint move">上山后压住背 牌</span>
+              <span class="demo-hint tunnel">钻到背 牌下面</span>
+              <span class="demo-card count-blue">8</span>
+              <span class="demo-card count-red">8</span>
+              <span class="demo-card order-elephant">象</span>
+              <span class="demo-card order-rat">鼠</span>
+              <span class="demo-card back">背</span>
+              <span class="demo-card red">猫</span>
+              <span class="demo-card blue">鼠</span>
+              <span class="demo-card tunnel-card">地道</span>
+              <span class="demo-label mountain-result">在牌上面</span>
+              <span class="demo-label tunnel-result">藏在下面</span>
+            </div>
+          </div>
+
+          <div class="rules-steps" aria-label="规则步骤">
+            <span class="rule-dot active"></span>
+            <span class="rule-dot"></span>
+            <span class="rule-dot"></span>
+            <span class="rule-dot"></span>
+            <span class="rule-dot"></span>
+          </div>
+
+          <div class="rules-actions">
+            <button id="rulesPrev" type="button">上一步</button>
+            <button id="rulesNext" type="button" class="primary">下一步</button>
+            <button id="rulesStart" type="button" class="primary">开始游戏</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/web-dist/main.js"></script>
+  </body>
+</html>

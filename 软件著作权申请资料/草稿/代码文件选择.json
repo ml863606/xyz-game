@@ -1,0 +1,142 @@
+{
+  "project_root": "D:\\WorkSpace\\mxl\\xyz\\xyz-game\\飞镖扎气球",
+  "selection_required": true,
+  "model_selection_required": true,
+  "confirmation_required": true,
+  "user_confirmed": true,
+  "target_pages": 60,
+  "lines_per_page": 50,
+  "target_lines": 3000,
+  "estimated_selected_lines": 1161,
+  "estimated_selected_pages": 24,
+  "estimated_all_candidate_lines": 1161,
+  "estimated_all_candidate_pages": 24,
+  "supplement_rule": "模型优先选择能体现软件核心功能和真实运行逻辑的源码；不足60页时再从其他相关源码中补充；候选源码仍不足时才生成全部代码材料。",
+  "confirmation_stage": "code-selection",
+  "next_action": "请由模型填写 草稿/代码文件选择.json 的抽取选择和选择理由，再让用户确认；确认后运行 confirm_stage.py --stage code-selection。",
+  "instructions": "The script only inventories source files. The model must choose selected/model_reason before user confirmation. Selected files are extracted in full with blank-only lines removed.",
+  "files": [
+    {
+      "path": "scripts/balloon.gd",
+      "selected": true,
+      "line_count": 152,
+      "material_line_count": 139,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "气球目标核心模块，定义普通、金色、炸弹、护盾、时钟、雷电、黑洞、火箭和彩虹爆破等目标类型，体现气球绘制、移动、碰撞和击破状态。"
+    },
+    {
+      "path": "scripts/dart.gd",
+      "selected": true,
+      "line_count": 56,
+      "material_line_count": 48,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "飞镖核心模块，体现发射初始化、重力和风力影响、飞行轨迹、拖尾绘制、碰撞形状和出界销毁逻辑。"
+    },
+    {
+      "path": "scripts/effect_ring.gd",
+      "selected": true,
+      "line_count": 30,
+      "material_line_count": 25,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "冲击波特效模块，用于彩虹爆破、黑洞等视觉反馈，体现圆环扩散、透明度衰减和生命周期管理。"
+    },
+    {
+      "path": "scripts/game.gd",
+      "selected": true,
+      "line_count": 861,
+      "material_line_count": 773,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "主游戏控制模块，覆盖场景构建、HUD、输入拖拽、飞镖发射、气球生成、碰撞结算、得分连击、任务、能量狂热、关卡胜负和最高分调用，是最能体现软件功能的核心源码。"
+    },
+    {
+      "path": "scripts/level_config.gd",
+      "selected": true,
+      "line_count": 32,
+      "material_line_count": 30,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "关卡配置模块，记录关卡编号、目标分数、生成间隔、移动速度、气球概率和风力强度，体现关卡递进规则。"
+    },
+    {
+      "path": "scripts/lightning_bolt.gd",
+      "selected": true,
+      "line_count": 38,
+      "material_line_count": 32,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "雷电视觉效果模块，体现特殊气球触发后的闪电链显示和短生命周期特效。"
+    },
+    {
+      "path": "scripts/platform_adapter.gd",
+      "selected": true,
+      "line_count": 32,
+      "material_line_count": 24,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "平台适配模块，体现本地最高分读取保存和未来抖音运行环境/分享能力隔离边界。"
+    },
+    {
+      "path": "scripts/rocket_projectile.gd",
+      "selected": true,
+      "line_count": 44,
+      "material_line_count": 38,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "火箭追踪模块，体现火箭气球触发后的目标追踪、飞行轨迹、命中检测和反馈回调。"
+    },
+    {
+      "path": "test/capture_frames.gd",
+      "selected": true,
+      "line_count": 29,
+      "material_line_count": 24,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "截图验证辅助脚本，用于自动演示和帧捕获，作为候选源码不足 60 页时的真实项目补充材料。"
+    },
+    {
+      "path": "test/presentation.gd",
+      "selected": true,
+      "line_count": 7,
+      "material_line_count": 6,
+      "priority": 80,
+      "selection_tier": "frontend",
+      "evidence": "普通源码文件",
+      "model_reason": "演示入口辅助脚本，用于触发自动演示流程，作为项目真实测试/展示代码补充。"
+    },
+    {
+      "path": "scenes/main.tscn",
+      "selected": true,
+      "line_count": 7,
+      "material_line_count": 4,
+      "priority": 100,
+      "selection_tier": "supplement",
+      "evidence": "补充源码证据",
+      "model_reason": "主入口场景文件，绑定主游戏脚本并体现软件启动场景结构，是运行入口配置材料。"
+    },
+    {
+      "path": "test/auto_main.tscn",
+      "selected": true,
+      "line_count": 9,
+      "material_line_count": 6,
+      "priority": 100,
+      "selection_tier": "supplement",
+      "evidence": "补充源码证据",
+      "model_reason": "自动演示测试场景文件，绑定演示脚本，作为候选源码不足 60 页时的真实场景配置补充。"
+    }
+  ],
+  "confirmation_note": "用户确认选择全部12个真实源码和场景文件用于代码材料",
+  "confirmed_at": "2026-07-03T07:52:46+00:00"
+}

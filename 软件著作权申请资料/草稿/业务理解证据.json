@@ -1,0 +1,143 @@
+{
+  "software_name": "飞镖扎气球游戏软件",
+  "project_root": "D:\\WorkSpace\\mxl\\xyz\\xyz-game\\飞镖扎气球",
+  "instruction": "本文件只收集证据，不决定行业、功能或手册结构。请由模型阅读这些证据以及必要的项目源码后，另行编写业务理解模型稿。",
+  "documents": [
+    {
+      "path": "AGENTS.md",
+      "size": 91,
+      "headings": [],
+      "opening": "Use $godogen to generate or update this Godot game from a natural language description."
+    },
+    {
+      "path": "ASSETS.md",
+      "size": 557,
+      "headings": [
+        "Assets"
+      ],
+      "opening": "Assets The first playable build uses procedural vector-style Godot drawing for all runtime visuals: - Balloons: colored circles with highlights and string tails. - Gold balloons: yellow variant with time reward feedback. - Bombs: dark circular hazard with fuse. - Dart: line and polygon drawing with colored tail fins. - Background: sky, clouds, and fairground booth blocks. - Effects: procedural burst particles and floating score text. This keeps the first Douyin validation package simple and avoids external bitmap asset import risk."
+    },
+    {
+      "path": "DOUYIN_SUBMISSION.md",
+      "size": 1047,
+      "headings": [
+        "Douyin Submission Checklist",
+        "Build Scope",
+        "Materials",
+        "Douyin Developer Tool Precheck"
+      ],
+      "opening": "Douyin Submission Checklist Build Scope - Single-player offline vertical game. - No backend domain, socket, payment, ads, or leaderboard in v1. - Runtime platform hooks are isolated behind scripts/platform adapter.gd . Materials - Game name: Dart Balloon / 飞镖扎气球. - Icon: icon.svg can be exported to PNG for the developer console. - Screenshots: capture at least three portrait gameplay screenshots from Godot or the Douyin developer tool. - Agreements: prepare user agreement and privacy policy URLs if required by the developer console. - Filing/copyright: prepare the current console-required mini-game filing, copyright, and qualification materials before submission. Douyin Developer Tool Precheck - Import or adapt the Godot export according to the current Douyin mini-game Godot path. - Confirm portrait orientation. - Confirm package starts directly into gameplay. - Confirm no network domain"
+    },
+    {
+      "path": "MEMORY.md",
+      "size": 945,
+      "headings": [
+        "Memory"
+      ],
+      "opening": "Memory - Built from request: \"godogen 做一个 飞镖扎气球的游戏, 要上架 抖音游戏中心\". - Target project path: D:\\WorkSpace\\mxl\\xyz\\xyz-game\\dart-balloon . - bash maps to missing WSL on this machine, so godogen runtime files were published with PowerShell copy operations instead of publish.sh . - Local toolchain detected before implementation: godot --version - 4.7.stable.official.5b4e0cb0f ; dotnet --version - 10.0.301 . - First release scope is offline single-player, no ads/ranking/backend/payment. - godot --headless --import --quit and godot --headless --check-only --path . passed after implementation. - godot --headless --write-movie ... crashes on this Windows/Godot 4.7 dummy texture path, but visible movie maker works and produced screenshots/result/1/capture.avi . - ffmpeg is not installed on PATH, so the proof video was left as Godot-generated AVI instead of converted MP4."
+    },
+    {
+      "path": "PLAN.md",
+      "size": 1766,
+      "headings": [
+        "Game Plan: Dart Balloon",
+        "Goal",
+        "Status",
+        "Acceptance Criteria",
+        "Verification"
+      ],
+      "opening": "Game Plan: Dart Balloon Goal Build a vertical short-session Godot game where players drag to aim a dart, release to throw, pop balloons, avoid bombs, chain combos, and clear score targets within 60 seconds. Status - [x] Create Godot project and godogen/Codex runtime files. - [x] Implement procedural 2D arcade visuals. - [x] Implement drag aiming, dart flight, balloon spawning, scoring, combo, time rewards, bomb penalties, round win/lose, restart, and pause. - [x] Add missions, energy, Frenzy Time, wind HUD, shield balloons, clock balloons, and richer hit feedback. - [x] Add power-up balloons with lightning chains, black-hole pulls, homing rockets, full-screen nuke shockwaves, flash, shake, and slow motion. - [x] Add platform adapter boundary for future Douyin runtime binding. - [x] Run Godot import/check validation. - [x] Produce final visual proof bundle. Acceptance Criteria - Runs from"
+    },
+    {
+      "path": "README.md",
+      "size": 1730,
+      "headings": [
+        "Dart Balloon",
+        "Run",
+        "Controls",
+        "Game Loop",
+        "Douyin Mini Game Notes"
+      ],
+      "opening": "Dart Balloon 竖屏飞镖扎气球 Godot 4 小游戏原型，目标是先形成可玩单机版本，再验证抖音小游戏中心上架路径。 Run Open this folder in Godot 4 and run res://scenes/main.tscn . Controls - Drag from the lower launcher area to aim. - Release to throw a dart. - R restarts the current round. - P pauses and resumes. Game Loop - 60 seconds per round. - Complete the round mission shown in the HUD for bonus score and time. - Pop regular balloons for score, combo, and energy. - Pop gold balloons for score, extra energy, and +3 seconds. - Shield balloons need two hits and are worth more. - Clock balloons freeze the countdown briefly. - Thunder balloons chain lightning through nearby targets. - Black hole balloons pull nearby targets inward before exploding. - Rocket balloons fire homing rockets from the launcher. - Rainbow nuke balloons create a full-screen shockwave and slow motion. - Fill the energy meter to trigger Frenzy Time: faster darts,"
+    },
+    {
+      "path": "STRUCTURE.md",
+      "size": 1380,
+      "headings": [
+        "Dart Balloon",
+        "Dimension",
+        "Scenes",
+        "Main",
+        "Scripts",
+        "Game",
+        "Balloon",
+        "Dart",
+        "LevelConfig",
+        "PlatformAdapter",
+        "Input Actions",
+        "Douyin Boundary"
+      ],
+      "opening": "Dart Balloon Dimension 2D vertical Godot 4 game, 720x1280 logical viewport. Scenes Main - File: res://scenes/main.tscn - Root type: Node2D - Script: res://scripts/game.gd - Runtime children: background, balloon layer, dart layer, effects layer, launcher, aim line, HUD canvas. Scripts Game - File: res://scripts/game.gd - Owns state, level configs, spawning, drag input, dart launching, scoring, round flow, HUD, and demo capture control. Balloon - File: res://scripts/balloon.gd - Area2D with procedural drawing, movement, collision, and pop transition. Dart - File: res://scripts/dart.gd - Area2D projectile with gravity, wind, trail, collision, and out-of-bounds expiry. LevelConfig - File: res://scripts/level config.gd - Resource-like data object for target score, spawn interval, movement, bomb/gold odds, and wind. PlatformAdapter - File: res://scripts/platform adapter.gd - Local persistence"
+    },
+    {
+      "path": "材料.md",
+      "size": 16490,
+      "headings": [
+        "飞镖扎气球软著申请材料整理",
+        "一、项目基本信息",
+        "二、申请表信息建议",
+        "三、软件功能概述",
+        "1. 游戏回合管理",
+        "2. 拖拽瞄准与飞镖发射",
+        "3. 气球生成与移动",
+        "4. 碰撞击破与得分结算",
+        "5. 连击、任务和能量狂热",
+        "6. 特殊气球效果",
+        "7. 关卡和风力机制",
+        "8. 最高分本地保存",
+        "9. 视觉反馈与界面显示",
+        "四、主要模块说明",
+        "五、技术特点",
+        "六、运行环境说明",
+        "七、用户操作流程",
+        "八、代码材料候选清单",
+        "九、操作手册章节建议",
+        "十、需申请人确认的信息",
+        "十一、项目证据来源"
+      ],
+      "opening": "飞镖扎气球软著申请材料整理 一、项目基本信息 软件名称建议填写为“飞镖扎气球游戏软件”。如需与当前工程英文名称保持一致，也可填写“Dart Balloon 飞镖扎气球游戏软件”。软著申请时建议使用稳定、清晰的中文软件全称，并在所有材料中保持完全一致。 软件简称建议填写为“飞镖扎气球”或“Dart Balloon”。版本号建议填写“V1.0”。软件分类建议选择“应用软件”，领域可描述为“休闲益智类游戏软件”或“移动端小游戏软件”。 本项目是基于 Godot 4 开发的竖屏单机休闲游戏。玩家在 720 x 1280 的竖屏画面中，通过拖拽底部发射区域进行瞄准，松手后发射飞镖击中画面中的气球。游戏以 60 秒限时回合为基础，通过气球生成、飞镖飞行、碰撞判定、得分连击、特殊气球效果、关卡目标和最高分保存等机制形成完整的单局循环。 本项目当前版本定位为单人离线玩法，没有接入广告、支付、排行榜、后端服务或网络请求。工程中通过 scripts/platform adapter.gd 预留平台适配边界，用于隔离本地最高分保存和未来抖音小游戏运行环境、分享能力等平台相关逻辑，避免游戏核心逻辑直接依赖具体平台接口。 二、申请表信息建议 字段 建议内容 --- --- 软件全称 飞镖扎气球游戏软件 软件简称 飞镖扎气球 版本号 V1.0 软件分类 应用软件 软件用途 休闲益智类小游戏，供用户在短时间内进行飞镖瞄准、气球击破、得分挑战和关卡闯关。 开发语言 GDScript 开发工具 Godot 4 运行平台 Windows 桌面运行环境、Godot 支持的移动端或小游戏适配环境；当前项目按竖屏移动端交互设计。 运行方式 在 Godot 4 中打开项目，运行 res://scenes/main.tscn 。 是否联网 当前版本为单机离线运行。 是否包含广告、支付、排行榜 当前版本不包含广告、支付、排行榜和后端服务。 建议发表状态 按实际情况填写“未发表”或“已发表”。 开发完成日期 需由申请人按实际完成时间确认。 著作权人 需由申请人填写真实主体信息。 申请表中的“主要功能和技术特点”可参考以"
+    }
+  ],
+  "code_evidence": {
+    "project_name": "飞镖扎气球",
+    "software_name_candidate": "飞镖扎气球",
+    "frameworks": [
+      "Godot"
+    ],
+    "language": "GDScript、Godot Scene",
+    "routes": [
+      "/"
+    ],
+    "feature_name_candidates": [
+      "test auto main"
+    ],
+    "entry_files": [
+      "scenes/main.tscn",
+      "scripts/game.gd"
+    ],
+    "page_files": [
+      "test/auto_main.tscn"
+    ],
+    "component_files": [],
+    "api_files": [],
+    "run_command_candidates": [],
+    "package": {
+      "name": "",
+      "path": "",
+      "version": "V1.0",
+      "scripts": {},
+      "dependency_names": []
+    }
+  },
+  "external_research_notes": ""
+}

@@ -1,0 +1,143 @@
+{
+  "software_name": "飞镖扎气球游戏软件",
+  "version": "V1.0",
+  "project_root": "D:\\WorkSpace\\mxl\\xyz\\xyz-game\\飞镖扎气球",
+  "file_count": 12,
+  "material_line_count": 1161,
+  "source_line_count": 1297,
+  "selected_source_line_count": 1149,
+  "lines_per_page": 50,
+  "total_pages": 24,
+  "target_pages": 60,
+  "available_candidate_line_count": 1161,
+  "available_candidate_pages": 24,
+  "supplement_status": "候选源码不足60页，按全部代码材料生成",
+  "mode": "all_under_60_pages",
+  "selection_file": "软件著作权申请资料\\草稿\\代码文件选择.json",
+  "outputs": [
+    "代码-全部.md"
+  ],
+  "files": [
+    {
+      "path": "scripts/balloon.gd",
+      "source_line_count": 152,
+      "blank_line_count": 13,
+      "selected_line_start": 1,
+      "selected_line_end": 152,
+      "selected_line_count": 139,
+      "material_line_start": 1,
+      "material_line_end": 140
+    },
+    {
+      "path": "scripts/dart.gd",
+      "source_line_count": 56,
+      "blank_line_count": 8,
+      "selected_line_start": 1,
+      "selected_line_end": 56,
+      "selected_line_count": 48,
+      "material_line_start": 141,
+      "material_line_end": 189
+    },
+    {
+      "path": "scripts/effect_ring.gd",
+      "source_line_count": 30,
+      "blank_line_count": 5,
+      "selected_line_start": 1,
+      "selected_line_end": 30,
+      "selected_line_count": 25,
+      "material_line_start": 190,
+      "material_line_end": 215
+    },
+    {
+      "path": "scripts/game.gd",
+      "source_line_count": 861,
+      "blank_line_count": 88,
+      "selected_line_start": 1,
+      "selected_line_end": 861,
+      "selected_line_count": 773,
+      "material_line_start": 216,
+      "material_line_end": 989
+    },
+    {
+      "path": "scripts/level_config.gd",
+      "source_line_count": 32,
+      "blank_line_count": 2,
+      "selected_line_start": 1,
+      "selected_line_end": 32,
+      "selected_line_count": 30,
+      "material_line_start": 990,
+      "material_line_end": 1020
+    },
+    {
+      "path": "scripts/lightning_bolt.gd",
+      "source_line_count": 38,
+      "blank_line_count": 6,
+      "selected_line_start": 1,
+      "selected_line_end": 38,
+      "selected_line_count": 32,
+      "material_line_start": 1021,
+      "material_line_end": 1053
+    },
+    {
+      "path": "scripts/platform_adapter.gd",
+      "source_line_count": 32,
+      "blank_line_count": 8,
+      "selected_line_start": 1,
+      "selected_line_end": 32,
+      "selected_line_count": 24,
+      "material_line_start": 1054,
+      "material_line_end": 1078
+    },
+    {
+      "path": "scripts/rocket_projectile.gd",
+      "source_line_count": 44,
+      "blank_line_count": 6,
+      "selected_line_start": 1,
+      "selected_line_end": 44,
+      "selected_line_count": 38,
+      "material_line_start": 1079,
+      "material_line_end": 1117
+    },
+    {
+      "path": "test/capture_frames.gd",
+      "source_line_count": 29,
+      "blank_line_count": 5,
+      "selected_line_start": 1,
+      "selected_line_end": 29,
+      "selected_line_count": 24,
+      "material_line_start": 1118,
+      "material_line_end": 1142
+    },
+    {
+      "path": "test/presentation.gd",
+      "source_line_count": 7,
+      "blank_line_count": 1,
+      "selected_line_start": 1,
+      "selected_line_end": 7,
+      "selected_line_count": 6,
+      "material_line_start": 1143,
+      "material_line_end": 1149
+    },
+    {
+      "path": "scenes/main.tscn",
+      "source_line_count": 7,
+      "blank_line_count": 3,
+      "selected_line_start": 1,
+      "selected_line_end": 7,
+      "selected_line_count": 4,
+      "material_line_start": 1150,
+      "material_line_end": 1154
+    },
+    {
+      "path": "test/auto_main.tscn",
+      "source_line_count": 9,
+      "blank_line_count": 3,
+      "selected_line_start": 1,
+      "selected_line_end": 9,
+      "selected_line_count": 6,
+      "material_line_start": 1155,
+      "material_line_end": 1161
+    }
+  ],
+  "safe_software_filename": "飞镖扎气球游戏软件"
+}

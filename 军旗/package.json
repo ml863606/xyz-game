@@ -1,0 +1,13 @@
+{
+  "name": "junqi-flip-online",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "preview": "node preview-server.cjs",
+    "server": "node room-server.cjs",
+    "check": "node --check game.js && node --check rules.cjs && node --check online-client.js && node --check room-server.cjs && node --check preview-server.cjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
