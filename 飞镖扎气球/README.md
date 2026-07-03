@@ -6,6 +6,14 @@
 
 Open this folder in Godot 4 and run `res://scenes/main.tscn`.
 
+## Run In Douyin Developer Tool
+
+本目录已经包含抖音小游戏入口文件，可直接导入抖音开发者工具：
+
+`D:\WorkSpace\mxl\xyz\xyz-game\飞镖扎气球`
+
+抖音运行入口是 `game.js`，竖屏配置在 `game.json`。Godot 相关目录只作为原型源码保留，不参与抖音小游戏打包。
+
 ## Controls
 
 - Drag from the lower launcher area to aim.

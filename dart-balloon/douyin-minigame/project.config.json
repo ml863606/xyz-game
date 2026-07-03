@@ -1,0 +1,8 @@
+{
+  "appid": "touristappid",
+  "projectname": "dart-balloon-douyin",
+  "description": "飞镖扎气球抖音小游戏原生 Canvas 版本",
+  "setting": {
+    "es6": true
+  }
+}

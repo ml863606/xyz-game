@@ -16,9 +16,21 @@
 
 ## Douyin Developer Tool Precheck
 
-- Import or adapt the Godot export according to the current Douyin mini-game Godot path.
+- For immediate Douyin Developer Tool testing, import the native Canvas mini-game project at `douyin-minigame/`.
+- The Godot version remains the richer local prototype; `douyin-minigame/game.js` is the runnable Douyin mini-game port.
 - Confirm portrait orientation.
 - Confirm package starts directly into gameplay.
 - Confirm no network domain is required for v1.
 - Confirm touch drag input works on simulator and real device preview.
 
+## Local Project To Import
+
+Use this directory in Douyin Developer Tool:
+
+`D:\WorkSpace\mxl\xyz\xyz-game\dart-balloon\douyin-minigame`
+
+Entry files:
+
+- `game.js`
+- `game.json`
+- `project.config.json`
