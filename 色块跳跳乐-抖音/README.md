@@ -8,7 +8,7 @@
 2. 选择导入小游戏项目。
 3. 项目目录选择：
 
-   `D:\WorkSpace\mxl\xyz\xyz-game\色块跳跳乐\douyin-minigame`
+   `D:\WorkSpace\mxl\xyz\xyz-game\色块跳跳乐-抖音`
 
 4. 如果有正式小游戏 AppID，把 `project.config.json` 里的 `appid` 从 `touristappid` 改成你的 AppID。
 5. 编译运行。
@@ -26,7 +26,7 @@
 
 ## 控制
 
-- 手机触摸：左下左右按钮移动，右下按钮跳跃。
+- 手机触摸：按住屏幕任意位置左右拖动控制移动，点按或上滑触发跳跃。
 - 开发者工具键盘：`A/D` 或方向键移动，`Space/W/↑` 跳跃，`R` 重开，`Esc` 回菜单。
 
 ## 已实现

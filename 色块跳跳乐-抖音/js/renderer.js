@@ -206,7 +206,7 @@ class Renderer {
     ctx.fillText('看颜色，踩平台，向上冲。', VIEW.width * 0.5, 232);
     ctx.fillStyle = COLORS.muted;
     ctx.font = '15px sans-serif';
-    ctx.fillText('左下移动，右下跳跃', VIEW.width * 0.5, 264);
+    ctx.fillText('按住拖动控制方向，点按或上滑跳跃', VIEW.width * 0.5, 264);
     this.button('开始', 110, 316, 170, 54, COLORS.spring);
     ctx.fillStyle = COLORS.muted;
     ctx.font = '14px sans-serif';
@@ -251,9 +251,19 @@ class Renderer {
     if (phase !== PHASE.playing) return;
     ctx.save();
     ctx.globalAlpha = 0.78;
-    this.controlButton(28, VIEW.height - 112, 70, '←');
-    this.controlButton(118, VIEW.height - 112, 70, '→');
-    this.controlButton(VIEW.width - 104, VIEW.height - 122, 82, '跳');
+    ctx.fillStyle = 'rgba(255,255,255,.11)';
+    roundRect(ctx, 28, VIEW.height - 106, VIEW.width - 56, 58, 22);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.20)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, 28, VIEW.height - 106, VIEW.width - 56, 58, 22);
+    ctx.stroke();
+    ctx.fillStyle = COLORS.text;
+    ctx.font = 'bold 16px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('按住拖动移动 · 点按/上滑跳跃', VIEW.width * 0.5, VIEW.height - 77);
+    ctx.textBaseline = 'alphabetic';
     ctx.restore();
   }
 

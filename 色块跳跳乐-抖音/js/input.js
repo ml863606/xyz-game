@@ -6,10 +6,16 @@ class Input {
     this.left = false;
     this.right = false;
     this.jump = false;
+    this.jumpPressed = false;
     this.start = false;
     this.restart = false;
     this.escape = false;
     this.touches = {};
+    this.primaryTouchId = null;
+    this.primaryStart = null;
+    this.primaryCurrent = null;
+    this.gestureAxis = 0;
+    this.touchActive = false;
     this.screen = this.getScreenInfo();
     this.install();
   }
@@ -32,14 +38,20 @@ class Input {
     return value;
   }
 
+  consumeJumpPress() {
+    const value = this.jumpPressed;
+    this.jumpPressed = false;
+    return value;
+  }
+
   install() {
     const api = typeof tt !== 'undefined' ? tt : null;
     if (api && api.onTouchStart) {
-      this.safeBind(api, 'onTouchStart', (event) => this.handleTouch(this.eventTouches(event), true));
-      this.safeBind(api, 'onTouchMove', (event) => this.handleTouch(this.eventTouches(event), true));
-      this.safeBind(api, 'onTouchEnd', (event) => this.handleTouch(event.touches || [], false));
+      this.safeBind(api, 'onTouchStart', (event) => this.handleTouchStart(this.eventTouches(event)));
+      this.safeBind(api, 'onTouchMove', (event) => this.handleTouchMove(this.eventTouches(event)));
+      this.safeBind(api, 'onTouchEnd', (event) => this.handleTouchEnd(event.changedTouches || event.touches || []));
       if (api.onTouchCancel) {
-        this.safeBind(api, 'onTouchCancel', (event) => this.handleTouch(event.touches || [], false));
+        this.safeBind(api, 'onTouchCancel', (event) => this.handleTouchEnd(event.changedTouches || event.touches || []));
       }
     }
 
@@ -55,9 +67,9 @@ class Input {
       window.addEventListener('keyup', (event) => this.key(event.key, false));
       const domCanvas = this.canvas;
       if (domCanvas && domCanvas.addEventListener) {
-        domCanvas.addEventListener('touchstart', (event) => this.domTouch(event, true), { passive: false });
-        domCanvas.addEventListener('touchmove', (event) => this.domTouch(event, true), { passive: false });
-        domCanvas.addEventListener('touchend', (event) => this.domTouch(event, false), { passive: false });
+        domCanvas.addEventListener('touchstart', (event) => this.domTouch(event, 'start'), { passive: false });
+        domCanvas.addEventListener('touchmove', (event) => this.domTouch(event, 'move'), { passive: false });
+        domCanvas.addEventListener('touchend', (event) => this.domTouch(event, 'end'), { passive: false });
         domCanvas.addEventListener('mousedown', (event) => this.pointer(event, true));
         domCanvas.addEventListener('mouseup', (event) => this.pointer(event, false));
         domCanvas.addEventListener('mousemove', (event) => {
@@ -112,15 +124,16 @@ class Input {
 
   key(raw, down) {
     const key = String(raw).toLowerCase();
-    if (key === 'a' || key === 'arrowleft') this.left = down;
-    if (key === 'd' || key === 'arrowright') this.right = down;
+    if (key === 'a' || key === 'arrowleft') this.left = down || this.gestureAxis < -0.2;
+    if (key === 'd' || key === 'arrowright') this.right = down || this.gestureAxis > 0.2;
     if (key === 'w' || key === 'arrowup' || key === ' ') this.jump = down;
+    if (down && (key === 'w' || key === 'arrowup' || key === ' ')) this.jumpPressed = true;
     if (down && (key === 'enter' || key === ' ')) this.start = true;
     if (down && key === 'r') this.restart = true;
     if (down && key === 'escape') this.escape = true;
   }
 
-  domTouch(event, active) {
+  domTouch(event, phase) {
     event.preventDefault();
     const rect = this.canvas.getBoundingClientRect ? this.canvas.getBoundingClientRect() : { left: 0, top: 0 };
     const touches = Array.prototype.map.call(event.touches, (touch) => ({
@@ -128,35 +141,133 @@ class Input {
       clientX: touch.clientX - rect.left,
       clientY: touch.clientY - rect.top
     }));
-    this.handleTouch(touches, active);
+    const changed = Array.prototype.map.call(event.changedTouches || event.touches, (touch) => ({
+      identifier: touch.identifier,
+      clientX: touch.clientX - rect.left,
+      clientY: touch.clientY - rect.top
+    }));
+    if (phase === 'start') this.handleTouchStart(touches);
+    else if (phase === 'move') this.handleTouchMove(touches);
+    else this.handleTouchEnd(changed);
   }
 
   pointer(event, active) {
     const rect = this.canvas.getBoundingClientRect ? this.canvas.getBoundingClientRect() : { left: 0, top: 0 };
-    this.handleTouch([{
+    const touch = {
       identifier: 'mouse',
       clientX: event.clientX - rect.left,
       clientY: event.clientY - rect.top
-    }], active);
+    };
+    if (active) {
+      if (!this.touchActive) this.handleTouchStart([touch]);
+      else this.handleTouchMove([touch]);
+    } else {
+      this.handleTouchEnd([touch]);
+    }
   }
 
-  handleTouch(touches, active) {
-    if (!active || touches.length === 0) {
-      this.touches = {};
-      this.left = false;
-      this.right = false;
-      this.jump = false;
-      return;
-    }
-
-    this.touches = {};
+  handleTouchStart(touches) {
+    if (!touches || touches.length === 0) return;
     for (let i = 0; i < touches.length; i++) {
       const touch = touches[i];
+      const id = touch.identifier || i;
       const point = this.readTouchPoint(touch);
       const p = this.toVirtual(point.x, point.y);
-      this.touches[touch.identifier || i] = p;
+      this.touches[id] = p;
+      if (this.primaryTouchId === null) {
+        this.primaryTouchId = id;
+        this.primaryStart = { x: p.x, y: p.y, time: Date.now() };
+        this.primaryCurrent = { x: p.x, y: p.y };
+        this.touchActive = true;
+      }
     }
-    this.updateTouchButtons();
+    this.updateGesture();
+  }
+
+  handleTouchMove(touches) {
+    if (!touches || touches.length === 0) return;
+    for (let i = 0; i < touches.length; i++) {
+      const touch = touches[i];
+      const id = touch.identifier || i;
+      const point = this.readTouchPoint(touch);
+      const p = this.toVirtual(point.x, point.y);
+      this.touches[id] = p;
+      if (id === this.primaryTouchId) {
+        this.primaryCurrent = { x: p.x, y: p.y };
+      }
+    }
+    this.updateGesture();
+  }
+
+  handleTouchEnd(touches) {
+    const endedIds = {};
+    for (let i = 0; i < touches.length; i++) {
+      const touch = touches[i];
+      endedIds[touch.identifier || i] = true;
+    }
+
+    if (this.primaryTouchId !== null && (endedIds[this.primaryTouchId] || touches.length === 0)) {
+      this.finishPrimaryGesture();
+    }
+
+    Object.keys(endedIds).forEach((id) => {
+      delete this.touches[id];
+    });
+
+    if (Object.keys(this.touches).length === 0) {
+      this.resetTouch();
+    } else if (this.primaryTouchId === null) {
+      const nextId = Object.keys(this.touches)[0];
+      const p = this.touches[nextId];
+      this.primaryTouchId = nextId;
+      this.primaryStart = { x: p.x, y: p.y, time: Date.now() };
+      this.primaryCurrent = { x: p.x, y: p.y };
+      this.touchActive = true;
+      this.updateGesture();
+    }
+  }
+
+  finishPrimaryGesture() {
+    if (!this.primaryStart || !this.primaryCurrent) return;
+    const dx = this.primaryCurrent.x - this.primaryStart.x;
+    const dy = this.primaryCurrent.y - this.primaryStart.y;
+    const dt = Math.max(1, Date.now() - this.primaryStart.time);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const quickTap = distance < 18 && dt < 280;
+    const upwardSwipe = dy < -34 && Math.abs(dy) > Math.abs(dx) * 0.65;
+    if (quickTap || upwardSwipe) {
+      this.jump = true;
+      this.jumpPressed = true;
+      this.start = true;
+      this.restart = true;
+    }
+  }
+
+  resetTouch() {
+    this.touches = {};
+    this.primaryTouchId = null;
+    this.primaryStart = null;
+    this.primaryCurrent = null;
+    this.gestureAxis = 0;
+    this.touchActive = false;
+    this.left = false;
+    this.right = false;
+    this.jump = false;
+  }
+
+  updateGesture() {
+    if (!this.primaryStart || !this.primaryCurrent) return;
+    const dx = this.primaryCurrent.x - this.primaryStart.x;
+    this.gestureAxis = clamp(dx / 54, -1, 1);
+    this.left = this.gestureAxis < -0.18;
+    this.right = this.gestureAxis > 0.18;
+    this.jump = false;
+
+    const p = this.primaryCurrent;
+    if (p.y > 292 && p.y < 388 && p.x > 84 && p.x < 306) {
+      this.start = true;
+      this.restart = true;
+    }
   }
 
   readTouchPoint(touch) {
@@ -179,37 +290,15 @@ class Input {
     };
   }
 
-  updateTouchButtons() {
-    let left = false;
-    let right = false;
-    let jump = false;
-    let start = false;
-    let restart = false;
-
-    Object.keys(this.touches).forEach((id) => {
-      const p = this.touches[id];
-      if (p.y > VIEW.height - 168) {
-        if (p.x < 118) left = true;
-        else if (p.x < 236) right = true;
-        else jump = true;
-      } else if (p.y > 292 && p.y < 388 && p.x > 98 && p.x < 292) {
-        start = true;
-        restart = true;
-      }
-    });
-
-    this.left = left;
-    this.right = right;
-    this.jump = jump;
-    if (start) this.start = true;
-    if (restart) this.restart = true;
-  }
-
   drawHintPhase(phase) {
     if (phase === PHASE.menu) return 'menu';
     if (phase === PHASE.gameOver) return 'restart';
     return 'playing';
   }
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
 }
 
 function firstNumber(...values) {

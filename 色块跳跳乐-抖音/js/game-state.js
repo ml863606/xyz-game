@@ -92,7 +92,7 @@ class GameState {
     this.reverseTimer = Math.max(0, this.reverseTimer - dt);
     const p = this.player;
     const jumpDown = this.input.jump;
-    if (jumpDown && !p.jumpHeld) p.jumpBuffer = 0.13;
+    if (this.input.consumeJumpPress() || (jumpDown && !p.jumpHeld)) p.jumpBuffer = 0.13;
     p.jumpHeld = jumpDown;
 
     const reversed = this.reverseTimer > 0 ? -1 : 1;
