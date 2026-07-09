@@ -1,0 +1,1 @@
+使用  godot-gdscript-patterns  skill 做一个  xxx  游戏

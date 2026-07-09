@@ -1,0 +1,4 @@
+interface:
+  display_name: "MXL Game Design"
+  short_description: "Game asset and code separation rules"
+  default_prompt: "Use $mxl-game-design to build a maintainable game prototype."

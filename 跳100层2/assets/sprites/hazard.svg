@@ -1,0 +1,16 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="48" cy="48" r="43" fill="#FF2A2A" fill-opacity="0.12"/>
+  <g fill="#F52D32">
+    <path d="M48 6 L57 34 L48 45 L39 34Z"/>
+    <path d="M48 90 L39 62 L48 51 L57 62Z"/>
+    <path d="M6 48 L34 39 L45 48 L34 57Z"/>
+    <path d="M90 48 L62 57 L51 48 L62 39Z"/>
+    <path d="M18 18 L45 31 L48 45 L34 42Z"/>
+    <path d="M78 78 L51 65 L48 51 L62 54Z"/>
+    <path d="M78 18 L65 45 L51 48 L54 34Z"/>
+    <path d="M18 78 L31 51 L45 48 L42 62Z"/>
+  </g>
+  <circle cx="48" cy="48" r="22" fill="#0E1422"/>
+  <circle cx="48" cy="48" r="12" fill="#FF7434"/>
+  <circle cx="43" cy="43" r="5" fill="#FFE17A"/>
+</svg>

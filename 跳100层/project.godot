@@ -1,0 +1,25 @@
+; Engine configuration file.
+; Editing this file directly is supported for this small generated prototype.
+
+config_version=5
+
+[application]
+
+config/name="Jump 100 Floors"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7")
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[physics]
+
+common/physics_ticks_per_second=60
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.52, 0.67, 0.82, 1)
