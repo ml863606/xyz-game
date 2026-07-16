@@ -1,0 +1,4 @@
+interface:
+  display_name: "MXL Godogen 游戏设计"
+  short_description: "初始化 Godogen 游戏工程并生成中文玩法提示词供确认"
+  default_prompt: "使用 $mxl-godot-game-design 初始化 Godogen 游戏工程，并生成采用 Godot 4 + GDScript 的中文提示词供我确认。"

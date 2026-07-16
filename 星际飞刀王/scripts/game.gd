@@ -5,7 +5,7 @@ const KNIFE_TEXTURE := preload("res://assets/sprites/star_knife.svg")
 const ASTEROID_TEXTURE := preload("res://assets/sprites/asteroid_cluster.svg")
 const TARGET_TEXTURE := preload("res://assets/sprites/star_target.svg")
 const GLIDE_ICON := preload("res://assets/ui/icons/glide.svg")
-const MAX_HULL := 3
+const MAX_HULL := 5
 
 var knife_world := Vector2(120.0, 0.0)
 var velocity := Vector2(230.0, 0.0)
@@ -30,6 +30,10 @@ var glide_label: Label
 var depth_label: Label
 var hull_label: Label
 var game_over_label: Label
+var touch_direction := Vector2.ZERO
+var touch_start := Vector2.ZERO
+var touch_dragging := false
+var touch_boost := false
 
 func _ready() -> void:
     get_viewport().size_changed.connect(queue_redraw)
@@ -55,13 +59,14 @@ func _update_game(delta: float) -> void:
     var input_vector := Vector2.ZERO
     input_vector.x = float(Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT)) - float(Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_LEFT))
     input_vector.y = float(Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN)) - float(Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP))
+    input_vector += touch_direction
     if input_vector.length() > 1.0:
         input_vector = input_vector.normalized()
 
     boost_cooldown = maxf(0.0, boost_cooldown - delta)
     impact_cooldown = maxf(0.0, impact_cooldown - delta)
     damage_cooldown = maxf(0.0, damage_cooldown - delta)
-    if Input.is_key_pressed(KEY_SPACE) and boost_cooldown <= 0.0:
+    if (Input.is_key_pressed(KEY_SPACE) or touch_boost) and boost_cooldown <= 0.0:
         velocity += Vector2(360.0, 0.0).rotated(velocity.angle())
         glide_time = maxf(glide_time, 0.85)
         boost_cooldown = 0.55
@@ -238,6 +243,90 @@ func _build_hud() -> void:
     game_over_label.visible = false
     layer.add_child(game_over_label)
 
+    _build_touch_controls(layer)
+
+func _build_touch_controls(layer: CanvasLayer) -> void:
+    var controls := Control.new()
+    controls.name = "横屏触控"
+    controls.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    controls.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    layer.add_child(controls)
+
+    var touch_area := Control.new()
+    touch_area.name = "滑动操控区"
+    touch_area.anchor_right = 0.48
+    touch_area.anchor_bottom = 1.0
+    touch_area.mouse_filter = Control.MOUSE_FILTER_STOP
+    touch_area.gui_input.connect(_on_touch_area_input)
+    controls.add_child(touch_area)
+
+    var actions := Control.new()
+    actions.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+    actions.position = Vector2(-164.0, -210.0)
+    actions.size = Vector2(140.0, 186.0)
+    actions.mouse_filter = Control.MOUSE_FILTER_PASS
+    controls.add_child(actions)
+
+    var boost := _touch_button("推进", Vector2(140.0, 104.0), 26)
+    boost.button_down.connect(func() -> void: touch_boost = true)
+    boost.button_up.connect(func() -> void: touch_boost = false)
+    actions.add_child(boost)
+    var restart := _touch_button("重开", Vector2(140.0, 58.0), 18)
+    restart.position = Vector2(0.0, 116.0)
+    restart.pressed.connect(_reset)
+    actions.add_child(restart)
+
+func _on_touch_area_input(event: InputEvent) -> void:
+    if event is InputEventScreenTouch:
+        if event.pressed:
+            touch_start = event.position
+            touch_direction = Vector2.ZERO
+            touch_dragging = true
+        else:
+            touch_direction = Vector2.ZERO
+            touch_dragging = false
+    elif event is InputEventScreenDrag and touch_dragging:
+        _set_touch_direction(event.position)
+    elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+        if event.pressed:
+            touch_start = event.position
+            touch_direction = Vector2.ZERO
+            touch_dragging = true
+        else:
+            touch_direction = Vector2.ZERO
+            touch_dragging = false
+    elif event is InputEventMouseMotion and touch_dragging:
+        _set_touch_direction(event.position)
+
+func _set_touch_direction(current_position: Vector2) -> void:
+    var drag := current_position - touch_start
+    if drag.length() >= 16.0:
+        touch_direction = drag.normalized()
+
+func _touch_button(text: String, button_size: Vector2, font_size: int) -> Button:
+    var button := Button.new()
+    button.text = text
+    button.size = button_size
+    button.add_theme_font_size_override("font_size", font_size)
+    button.add_theme_color_override("font_color", Color("#fff4d6"))
+    button.add_theme_color_override("font_hover_color", Color("#ffffff"))
+    button.add_theme_color_override("font_pressed_color", Color("#ffdc7d"))
+    button.add_theme_stylebox_override("normal", _control_style(Color("#18263d"), Color("#8aa9c7"), 0.82))
+    button.add_theme_stylebox_override("hover", _control_style(Color("#26405e"), Color("#f0c56c"), 0.92))
+    button.add_theme_stylebox_override("pressed", _control_style(Color("#43311d"), Color("#ffcf62"), 0.98))
+    return button
+
+func _control_style(fill: Color, border: Color, alpha: float) -> StyleBoxFlat:
+    var style := StyleBoxFlat.new()
+    style.bg_color = Color(fill, alpha)
+    style.border_color = border
+    style.set_border_width_all(2)
+    style.corner_radius_top_left = 10
+    style.corner_radius_top_right = 10
+    style.corner_radius_bottom_left = 10
+    style.corner_radius_bottom_right = 10
+    return style
+
 func _hud_label(pos: Vector2, size: int) -> Label:
     var label := Label.new()
     label.position = pos
@@ -249,12 +338,12 @@ func _hud_label(pos: Vector2, size: int) -> Label:
     return label
 
 func _update_hud() -> void:
-    score_label.text = "SCORE %02d" % score
-    speed_label.text = "SPEED %03d" % int(velocity.length())
-    depth_label.text = "GRAVITY %+0.2f" % gravity_height(knife_world)
-    hull_label.text = "HULL %s" % "#".repeat(hull)
-    glide_label.text = "DEAD" if game_over else ("GLIDE" if glide_time > 0.0 else "READY")
-    game_over_label.text = "CRASHED\nPRESS R TO RESTART"
+    score_label.text = "得分 %02d" % score
+    speed_label.text = "速度 %03d" % int(velocity.length())
+    depth_label.text = "引力 %+0.2f" % gravity_height(knife_world)
+    hull_label.text = "耐久 %s" % "◆".repeat(hull)
+    glide_label.text = "已坠毁" if game_over else ("滑翔中" if glide_time > 0.0 else "准备就绪")
+    game_over_label.text = "飞刀坠毁\n点击右下角重开"
     game_over_label.visible = game_over
 
 func _draw() -> void:
