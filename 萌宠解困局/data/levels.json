@@ -1,0 +1,85 @@
+{
+  "levels": [
+    {
+      "id": 1, "chapter": "玩具屋", "title": "第一次集合", "subtitle": "让伙伴们在出口会合", "tip": "用数字键切换萌宠。", "width": 7, "height": 5, "par": 14,
+      "pets": {"orange": [1, 1], "doubao": [1, 2], "snow": [1, 3]}, "exit": [5, 2],
+      "walls": [[3, 0], [3, 4]], "crates": [], "plates": [], "doors": [], "fences": [], "keys": [], "runes": [], "bridges": [], "portals": [], "one_way": [], "fish": [[4, 1]]
+    },
+    {
+      "id": 2, "chapter": "玩具屋", "title": "小橘的力气", "subtitle": "把木箱推到重型踏板", "tip": "只有小橘能推动木箱。", "width": 8, "height": 6, "par": 24,
+      "pets": {"orange": [1, 3], "doubao": [1, 1], "snow": [1, 2]}, "exit": [6, 2],
+      "walls": [[5, 0], [5, 1], [5, 3], [5, 4], [5, 5]], "crates": [[2, 3]],
+      "plates": [{"pos": [4, 3], "kind": "heavy", "door": "A"}], "doors": [{"pos": [5, 2], "id": "A"}],
+      "fences": [], "keys": [], "runes": [], "bridges": [], "portals": [], "one_way": [], "fish": [[3, 4]]
+    },
+    {
+      "id": 3, "chapter": "玩具屋", "title": "豆包钻洞", "subtitle": "从栅栏后取回钥匙", "tip": "豆包可以穿过栅栏缝隙。", "width": 8, "height": 6, "par": 29,
+      "pets": {"orange": [1, 3], "doubao": [1, 2], "snow": [1, 4]}, "exit": [6, 4],
+      "walls": [[3, 0], [3, 3], [3, 5]], "crates": [], "plates": [], "doors": [{"pos": [3, 4], "id": "B"}],
+      "fences": [[3, 1], [3, 2]], "keys": [{"pos": [5, 2], "door": "B"}], "runes": [], "bridges": [], "portals": [], "one_way": [], "fish": [[6, 1]]
+    },
+    {
+      "id": 4, "chapter": "玩具屋", "title": "雪团点灯", "subtitle": "让符文照亮冰桥", "tip": "雪团站上符文时，冰桥会出现。", "width": 9, "height": 6, "par": 30,
+      "pets": {"orange": [1, 1], "doubao": [1, 3], "snow": [2, 2]}, "exit": [7, 2],
+      "walls": [[4, 0], [4, 1], [4, 3], [4, 4], [4, 5]], "crates": [], "plates": [], "doors": [], "fences": [], "keys": [],
+      "runes": [{"pos": [3, 2], "bridge": "C"}], "bridges": [{"pos": [4, 2], "id": "C"}], "portals": [], "one_way": [], "fish": [[6, 1]]
+    },
+    {
+      "id": 5, "chapter": "后花园", "title": "传送窝", "subtitle": "从柔软的窝里穿过花墙", "tip": "同色传送窝会把萌宠送到另一端。", "width": 9, "height": 6, "par": 22,
+      "pets": {"orange": [1, 1], "doubao": [1, 2], "snow": [1, 3]}, "exit": [7, 3],
+      "walls": [[4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5]], "crates": [], "plates": [], "doors": [], "fences": [], "keys": [], "runes": [], "bridges": [],
+      "portals": [{"pos": [3, 2], "pair": "P"}, {"pos": [5, 3], "pair": "P"}], "one_way": [], "fish": [[6, 1]]
+    },
+    {
+      "id": 6, "chapter": "后花园", "title": "顺风小径", "subtitle": "沿箭头穿过单向花道", "tip": "箭头格只能沿箭头方向进入。", "width": 9, "height": 7, "par": 31,
+      "pets": {"orange": [1, 2], "doubao": [1, 3], "snow": [1, 4]}, "exit": [7, 3],
+      "walls": [[3, 1], [4, 1], [5, 1], [3, 5], [4, 5], [5, 5], [6, 2], [6, 4]], "crates": [], "plates": [], "doors": [], "fences": [], "keys": [], "runes": [], "bridges": [], "portals": [],
+      "one_way": [{"pos": [3, 2], "dir": [1, 0]}, {"pos": [4, 2], "dir": [1, 0]}, {"pos": [5, 2], "dir": [1, 0]}], "fish": [[5, 3]]
+    },
+    {
+      "id": 7, "chapter": "后花园", "title": "双重门锁", "subtitle": "踏板与钥匙缺一不可", "tip": "木箱会一直压住踏板。", "width": 10, "height": 7, "par": 39,
+      "pets": {"orange": [1, 4], "doubao": [1, 2], "snow": [1, 3]}, "exit": [8, 3],
+      "walls": [[4, 0], [4, 1], [4, 4], [4, 5], [4, 6], [7, 0], [7, 1], [7, 2], [7, 4], [7, 5], [7, 6]],
+      "crates": [[2, 4]], "plates": [{"pos": [3, 4], "kind": "heavy", "door": "D"}],
+      "doors": [{"pos": [4, 3], "id": "D"}, {"pos": [7, 3], "id": "E"}], "fences": [[4, 2]], "keys": [{"pos": [6, 2], "door": "E"}],
+      "runes": [], "bridges": [], "portals": [], "one_way": [], "fish": [[5, 5]]
+    },
+    {
+      "id": 8, "chapter": "后花园", "title": "桥上的接力", "subtitle": "先点亮，再依次通过", "tip": "冰桥熄灭后，桥上的萌宠仍可以离开。", "width": 10, "height": 7, "par": 42,
+      "pets": {"orange": [1, 2], "doubao": [1, 4], "snow": [2, 3]}, "exit": [8, 3],
+      "walls": [[5, 0], [5, 1], [5, 2], [5, 4], [5, 5], [5, 6]], "crates": [], "plates": [], "doors": [], "fences": [[3, 1], [3, 2]], "keys": [],
+      "runes": [{"pos": [4, 3], "bridge": "F"}], "bridges": [{"pos": [5, 3], "id": "F"}], "portals": [], "one_way": [], "fish": [[7, 1]]
+    },
+    {
+      "id": 9, "chapter": "星光工坊", "title": "星门换位", "subtitle": "利用传送窝调整队伍顺序", "tip": "出口附近的空间有限，留意伙伴站位。", "width": 10, "height": 7, "par": 43,
+      "pets": {"orange": [1, 1], "doubao": [1, 3], "snow": [1, 5]}, "exit": [8, 3],
+      "walls": [[4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [4, 6], [7, 2], [7, 4]], "crates": [], "plates": [], "doors": [], "fences": [], "keys": [], "runes": [], "bridges": [],
+      "portals": [{"pos": [3, 1], "pair": "G"}, {"pos": [5, 5], "pair": "G"}, {"pos": [3, 5], "pair": "H"}, {"pos": [5, 1], "pair": "H"}], "one_way": [], "fish": [[6, 3]]
+    },
+    {
+      "id": 10, "chapter": "星光工坊", "title": "三色回路", "subtitle": "能力接力打开工坊核心", "tip": "先让豆包取钥匙，再安排小橘和雪团。", "width": 11, "height": 7, "par": 52,
+      "pets": {"orange": [1, 4], "doubao": [1, 2], "snow": [1, 3]}, "exit": [10, 3],
+      "walls": [[4, 0], [4, 4], [4, 5], [4, 6], [7, 0], [7, 1], [7, 2], [7, 4], [7, 5], [7, 6], [9, 0], [9, 1], [9, 3], [9, 4], [9, 5], [9, 6]],
+      "crates": [[2, 4]], "plates": [{"pos": [3, 4], "kind": "heavy", "door": "I"}], "doors": [{"pos": [4, 3], "id": "I"}, {"pos": [7, 3], "id": "J"}],
+      "fences": [[4, 1], [4, 2]], "keys": [{"pos": [6, 2], "door": "J"}], "runes": [{"pos": [8, 2], "bridge": "K"}], "bridges": [{"pos": [9, 2], "id": "K"}],
+      "portals": [], "one_way": [], "fish": [[8, 5]]
+    },
+    {
+      "id": 11, "chapter": "星光工坊", "title": "逆向齿轮", "subtitle": "绕行并重排机关顺序", "tip": "善用撤销尝试不同顺序。", "width": 11, "height": 8, "par": 58,
+      "pets": {"orange": [1, 5], "doubao": [1, 2], "snow": [1, 3]}, "exit": [9, 4],
+      "walls": [[3, 1], [3, 3], [3, 4], [3, 6], [6, 0], [6, 1], [6, 2], [6, 4], [6, 5], [6, 6], [6, 7], [8, 0], [8, 1], [8, 2], [8, 3], [8, 5], [8, 6], [8, 7]],
+      "crates": [[2, 5]], "plates": [{"pos": [3, 5], "kind": "heavy", "door": "L"}], "doors": [{"pos": [6, 3], "id": "L"}],
+      "fences": [[3, 2]], "keys": [], "runes": [{"pos": [7, 4], "bridge": "M"}], "bridges": [{"pos": [8, 4], "id": "M"}],
+      "portals": [{"pos": [5, 1], "pair": "N"}, {"pos": [7, 6], "pair": "N"}], "one_way": [{"pos": [7, 3], "dir": [1, 0]}], "fish": [[9, 1]]
+    },
+    {
+      "id": 12, "chapter": "星光工坊", "title": "最后的团圆", "subtitle": "让三位伙伴完成最终接力", "tip": "逐段确认退路，再推进下一道机关。", "width": 12, "height": 8, "par": 68,
+      "pets": {"orange": [1, 5], "doubao": [1, 2], "snow": [1, 3]}, "exit": [10, 4],
+      "walls": [[4, 0], [4, 3], [4, 4], [4, 6], [4, 7], [7, 0], [7, 1], [7, 2], [7, 4], [7, 5], [7, 6], [7, 7], [9, 0], [9, 1], [9, 2], [9, 5], [9, 6], [9, 7]],
+      "crates": [[2, 5]], "plates": [{"pos": [3, 5], "kind": "heavy", "door": "O"}, {"pos": [6, 3], "kind": "light", "door": "P"}],
+      "doors": [{"pos": [4, 5], "id": "O"}, {"pos": [7, 3], "id": "P"}, {"pos": [9, 4], "id": "Q"}],
+      "fences": [[4, 1], [4, 2]], "keys": [{"pos": [6, 2], "door": "Q"}], "runes": [{"pos": [8, 3], "bridge": "R"}], "bridges": [{"pos": [9, 3], "id": "R"}],
+      "portals": [{"pos": [5, 6], "pair": "S"}, {"pos": [8, 1], "pair": "S"}], "one_way": [{"pos": [8, 4], "dir": [1, 0]}], "fish": [[10, 1]]
+    }
+  ]
+}

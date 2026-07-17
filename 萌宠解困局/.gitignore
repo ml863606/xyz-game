@@ -1,0 +1,6 @@
+.tools/
+.godot/
+*.import
+*.uid
+bin/
+obj/
